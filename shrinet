@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# test root
+if [[ $UID -ne 0 ]]; then
+    echo "don't try this without superuser powers"
+    exit 1
+fi
+
+# check arguments
+if [ "$1" == "-h" ]; then
+    echo "usage: shrinet [in out]"
+    echo "ex: shrinet eth0 eth1"
+    echo "def: shrinet eth0 wlan0"
+fi
+
+if [ "$_" == "3" ]; then
+    OUT=$2
+    IN=$1
+else
+    OUT="wlan0"
+    IN="eth0"
+fi
+
+echo "setting up interface $IN, ip is 192.168.66.101"
+ifconfig $IN up
+ifconfig $IN 192.168.66.101
+
+echo "enable ip forwarding"
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+echo "setting up masquerading"
+iptables -A FORWARD -o $OUT -i $IN -j ACCEPT
+iptables -A POSTROUTING -t nat -j MASQUERADE
+
+echo "done"
+exit 0
