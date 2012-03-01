@@ -15,6 +15,7 @@ if [ "$1" == "mu" ]; then
     route add default gw 192.168.178.1
     echo 'nameserver 8.8.8.8' > /etc/resolv.conf
     shrinet
+    synergyc 192.168.66.100
 elif [ "$1" == "pr" ]; then
     route del default gw 192.168.66.1 
     route add default gw 192.168.66.101

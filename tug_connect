@@ -1,0 +1,9 @@
+#!/bin/bash
+
+vpnc-disconnect
+ifconfig wlan0 down
+ifconfig wlan0 up
+iwconfig wlan0 essid tug
+ifconfig wlan0
+dhclient -v wlan0
+vpnc-connect tug

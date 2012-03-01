@@ -1,0 +1,108 @@
+#!/bin/bash
+
+# jollyroger flag
+JOL=0
+
+# colors
+RED="\e[31m"
+BLUE="\e[34m"
+DEFAULT="\e[0m"
+
+# interface
+IF="wlan0"
+
+if [ "$1" == "home" ]; then
+    essid="red leader"
+    pw="blablabla"
+    JOL=1
+elif [ "$1" == "mo" ]; then
+    essid="UPC017432"
+    pw="MoDCA007"
+elif [ "$1" == "flo" ]; then
+    essid="Chuck Norris"
+    pw="oargerork91"
+elif [ "$1" == "milo" ]; then
+    essid="UPC013856"
+    pw="AAAABZYK"
+elif [ "$1" == "mifi" ]; then
+    essid="looong cat"
+    pw="Gorilla666"
+elif [ "$1" == "ogi" ]; then
+    essid="CAD-TGW"
+    pw="1569590233247358"
+elif [ "$1" == "peter" ]; then
+    essid="futurama"
+    pw='Home!0815'
+    echo $pw
+elif [ "$1" == "sta" ]; then
+    essid="shaolin"
+    pw="omitofo1"
+elif [ "$1" == "sta2" ]; then
+    essid="shaolin2"
+    pw="omitofo1"
+elif [ "$1" == "sta3" ]; then
+    essid="shaolin3"
+    pw="omitofo1"
+elif [ "$1" == "sub" ]; then
+    essid="subnet.local"
+    pw="Aegeim0yof9Ookoh"
+elif [ "$1" == "lava" ]; then
+    essid="verstrahlnix"
+    pw="oneringtorulethemall"
+elif [ "$1" == "flowork" ]; then
+    essid="GUESTS"
+    pw="welcome@solfox!"
+elif [ "$1" == "dani" ]; then
+    essid="Pretty-Fly-for-a-WiFi"
+    pw="26delphine89wallabies132falken"
+else
+    echo -n "essid? "
+    read essid
+    echo -n "pw? "
+    read pw
+fi
+
+echo "checking if ap exists: $essid"
+ifconfig $IF up
+string=$(iwlist $IF scan | grep "$essid")
+if [ -n "$string" ]; then
+    echo -e $BLUE"connecting to $RED$essid$BLUE...$DEFAULT"
+    
+    # get the interface down
+    ifconfig $IF down
+    
+    # release the dhcp lease
+    dhclient -r $IF 
+
+    # configure wpa support
+    echo -e $BLUE"wpa_supplicant: $DEFAULT"
+    wpa_passphrase "$essid" "$pw" > /etc/wpa_supplicant.conf
+    wpa_supplicant -d -B -i $IF -Dwext -c /etc/wpa_supplicant.conf
+
+    # start the interface
+    ifconfig $IF up
+
+    # set the interface into managed mode
+    iwconfig $IF mode Managed
+
+    # request ip
+    echo -e $BLUE"dhclient: $DEFAULT"
+    dhclient -v $IF
+    dhc_ex_cd=$?
+
+    if [ $dhc_ex_cd -eq "0" ]; then
+	cowsay "Muh, Connected to $essid"
+    else
+	cowsay "Muh, Connecting failed :("
+	exit
+    fi
+
+    # set name server
+    echo -n "" > /etc/resolv.conf
+    if [ $JOL == 1 ]; then
+	echo "nameserver 192.168.66.10" >> /etc/resolv.conf
+    fi
+    echo "nameserver 8.8.8.8" >> /etc/resolv.conf
+else
+    echo -e $RED"Error:$DEFAULT ap not available"
+fi
