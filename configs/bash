@@ -96,5 +96,3 @@ export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/jinn/
 
 # sudo env
 alias sudo='sudo env PATH=$PATH'
-
-#woo
