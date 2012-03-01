@@ -11,56 +11,22 @@ DEFAULT="\e[0m"
 # interface
 IF="wlan0"
 
-if [ "$1" == "home" ]; then
-    essid="red leader"
-    pw="blablabla"
-    JOL=1
-elif [ "$1" == "mo" ]; then
-    essid="UPC017432"
-    pw="MoDCA007"
-elif [ "$1" == "flo" ]; then
-    essid="Chuck Norris"
-    pw="oargerork91"
-elif [ "$1" == "milo" ]; then
-    essid="UPC013856"
-    pw="AAAABZYK"
-elif [ "$1" == "mifi" ]; then
-    essid="looong cat"
-    pw="Gorilla666"
-elif [ "$1" == "ogi" ]; then
-    essid="CAD-TGW"
-    pw="1569590233247358"
-elif [ "$1" == "peter" ]; then
-    essid="futurama"
-    pw='Home!0815'
-    echo $pw
-elif [ "$1" == "sta" ]; then
-    essid="shaolin"
-    pw="omitofo1"
-elif [ "$1" == "sta2" ]; then
-    essid="shaolin2"
-    pw="omitofo1"
-elif [ "$1" == "sta3" ]; then
-    essid="shaolin3"
-    pw="omitofo1"
-elif [ "$1" == "sub" ]; then
-    essid="subnet.local"
-    pw="Aegeim0yof9Ookoh"
-elif [ "$1" == "lava" ]; then
-    essid="verstrahlnix"
-    pw="oneringtorulethemall"
-elif [ "$1" == "flowork" ]; then
-    essid="GUESTS"
-    pw="welcome@solfox!"
-elif [ "$1" == "dani" ]; then
-    essid="Pretty-Fly-for-a-WiFi"
-    pw="26delphine89wallabies132falken"
+if [ -e ~/.wifisec ]; then
+    while read line; do
+	eval ${line}
+    done < ~/.wifisec
 else
+    echo 'Warning: no password file found'
+fi
+
+
+if [ '$essid' == '' ]; then
     echo -n "essid? "
     read essid
     echo -n "pw? "
     read pw
 fi
+
 
 echo "checking if ap exists: $essid"
 ifconfig $IF up
