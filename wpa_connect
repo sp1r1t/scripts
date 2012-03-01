@@ -11,6 +11,8 @@ DEFAULT="\e[0m"
 # interface
 IF="wlan0"
 
+essid=""
+pw=""
 if [ -e ~/.wifisec ]; then
     while read line; do
 	eval ${line}
@@ -20,7 +22,7 @@ else
 fi
 
 
-if [ '$essid' == '' ]; then
+if [ "$essid" == "" ]; then
     echo -n "essid? "
     read essid
     echo -n "pw? "
