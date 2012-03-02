@@ -11,17 +11,19 @@ DEFAULT="\e[0m"
 # interface
 IF="wlan0"
 
+# create vars and set to default
 essid=""
 pw=""
-if [ -e ~/.wifisec ]; then
-    while read line; do
-	eval ${line}
-    done < ~/.wifisec
+
+# look for password file and if exists get essid and pw
+if [ -e /home/jinn/.wifisec ]; then
+    essid=$(cat /home/jinn/.wifisec | grep $1 | sed 's/.*,\(.*\),.*/\1/')
+    pw=$(cat /home/jinn/.wifisec | grep $1 | sed 's/.*,.*,\(.*\)/\1/')
 else
     echo 'Warning: no password file found'
 fi
 
-
+# when ther is no pw file, or the ap is not in it, read info from cli
 if [ "$essid" == "" ]; then
     echo -n "essid? "
     read essid
@@ -29,7 +31,7 @@ if [ "$essid" == "" ]; then
     read pw
 fi
 
-
+# start the connection magic
 echo "checking if ap exists: $essid"
 ifconfig $IF up
 string=$(iwlist $IF scan | grep "$essid")
