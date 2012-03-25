@@ -95,4 +95,4 @@ export EDITOR='/usr/local/bin/ec'
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/jinn/bin:/scripts
 
 # sudo env
-alias sudo='sudo env PATH=$PATH'
+#alias sudo='sudo env PATH=$PATH'

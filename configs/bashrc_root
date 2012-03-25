@@ -1,0 +1,42 @@
+# ~/.bashrc: executed by bash(1) for non-login shells.
+
+
+# Color Bash
+bb="\[\e[34;1m\]" # bold blue
+b="\[\e[34m\]"    # blue
+rb="\[\e[31;1m\]" # bold red
+r="\[\e[31m\]"    # red
+yb="\[\e[33;1m\]" # bold yellow
+y="\[\e[33m\]"    # yellow
+gb="\[\e[32;1m\]" # bold green
+g="\[\e[32m\]"    # green
+pb="\[\e[35;1m\]" # bold purple
+p="\[\e[35m\]"    # purple
+tp="\[\e[36;1m\]" # bold turquoise
+t="\[\e[36m\]"    # turquoise
+wb="\[\e[37;1m\]" # bold white
+w="\[\e[37m\]"    # white
+def="\[\e[0m\]"   # default color
+
+export PS1="$r\u$w@$y\h$def:\w\$ "
+umask 022
+
+# You may uncomment the following lines if you want `ls' to be colorized:
+# export LS_OPTIONS='--color=auto'
+# eval "`dircolors`"
+alias ls='ls $LS_OPTIONS'
+alias ll='ls $LS_OPTIONS -l'
+alias l='ls $LS_OPTIONS -lA'
+
+# Some more alias to avoid making mistakes:
+# alias rm='rm -i'
+# alias cp='cp -i'
+# alias mv='mv -i'
+
+alias ai='apt-get install'
+alias asr='apt-cache search'
+
+
+# env vars
+export EDITOR='/usr/local/bin/ec'
+export PATH='/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/scripts'

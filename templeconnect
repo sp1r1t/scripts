@@ -5,6 +5,12 @@ function help {
     exit
 }   
 
+# test root
+if [[ $UID -ne 0 ]]; then
+    echo "don't try this without superuser powers"
+    exit 1
+fi
+
 if [ "$#" != 1 ]; then
     help
 fi
