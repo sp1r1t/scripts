@@ -1,7 +1,32 @@
 #!/bin/bash
 
-# jollyroger flag
+# set default vars
+scanaps=1
 JOL=0
+
+# switch off enoying getopts errmsgs
+export OPTERR=0
+
+# scan for options
+while getopts "n" opt; do
+    case "$opt" in
+	n)
+	    echo "I won't scan for the AP"
+	    scanaps=0
+	    ;;
+    esac
+done
+
+# set $ap
+while [ $# -ge 1 ]; do
+    if [ -n "$(echo "$1k" | grep '-')" ]; then # i don't know why, but echo acts different on "-n" alone, but with the k (or any other letter/word) it works...
+	shift
+    else
+	ap="$1"
+	echo "AP is $ap"
+	break
+    fi
+done
 
 # colors
 RED="\e[31m"
@@ -17,13 +42,13 @@ pw=""
 
 # look for password file and if exists get essid and pw
 if [ -e /home/jinn/.wifisec ]; then
-    essid=$(cat /home/jinn/.wifisec | grep $1 | sed 's/.*,\(.*\),.*/\1/')
-    pw=$(cat /home/jinn/.wifisec | grep $1 | sed 's/.*,.*,\(.*\)/\1/')
+    essid=$(cat /home/jinn/.wifisec | grep "$ap" | sed 's/.*,\(.*\),.*/\1/')
+    pw=$(cat /home/jinn/.wifisec | grep "$ap" | sed 's/.*,.*,\(.*\)/\1/')
 else
     echo 'Warning: no password file found'
 fi
 
-# when ther is no pw file, or the ap is not in it, read info from cli
+# when there is no pw file, or the ap is not in it, read info from cli
 if [ "$essid" == "" ]; then
     echo -n "essid? "
     read essid
@@ -32,9 +57,15 @@ if [ "$essid" == "" ]; then
 fi
 
 # start the connection magic
-echo "checking if ap exists: $essid"
 ifconfig $IF up
-string=$(iwlist $IF scan | grep "$essid")
+
+if [ $scanaps == 1 ]; then
+    echo "checking if ap exists: $essid"
+    string=$(iwlist $IF scan | grep "$essid")
+else
+    string="valid"
+fi
+
 if [ -n "$string" ]; then
     echo -e $BLUE"connecting to $RED$essid$BLUE...$DEFAULT"
     

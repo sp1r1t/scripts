@@ -96,6 +96,7 @@ alias pu="ping web.de"
 # env vars
 export EDITOR='/usr/local/bin/ec'
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/jinn/bin:/scripts:/usr/local/sbin:/usr/sbin:/sbin    
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/jinn/bin:/scripts:/usr/local/sbin:/usr/sbin:/sbin
 
 # sudo env
 alias sudo='sudo env PATH=$PATH'
