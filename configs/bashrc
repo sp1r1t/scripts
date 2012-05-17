@@ -90,10 +90,12 @@ alias asr='apt-cache search'
 alias sudo='sudo '
 alias s="sudo su -"
 alias mktags="cd $CODEDIR && etags `find $CODEDIR -name '*.cpp' -o -name '*.[c|h]'` && cd -"
+alias pn="ping 8.8.8.8"
+alias pu="ping web.de"
 
 # env vars
 export EDITOR='/usr/local/bin/ec'
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/jinn/bin:/scripts
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/jinn/bin:/scripts:/usr/local/sbin:/usr/sbin:/sbin    
 
 # sudo env
-alias sudo='sudo env PATH=$PATH:/sbin'
+alias sudo='sudo env PATH=$PATH'
