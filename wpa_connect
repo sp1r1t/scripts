@@ -28,6 +28,8 @@ while [ $# -ge 1 ]; do
     fi
 done
 
+exit
+
 # colors
 RED="\e[31m"
 BLUE="\e[34m"
@@ -41,9 +43,9 @@ essid=""
 pw=""
 
 # look for password file and if exists get essid and pw
-if [ -e /home/jinn/.wifisec ]; then
-    essid=$(cat /home/jinn/.wifisec | grep "$ap" | sed 's/.*,\(.*\),.*/\1/')
-    pw=$(cat /home/jinn/.wifisec | grep "$ap" | sed 's/.*,.*,\(.*\)/\1/')
+if [ -e $HOME/.wifisec ]; then
+    essid=$(cat $HOME/.wifisec | grep "$ap" | sed 's/.*,\(.*\),.*/\1/')
+    pw=$(cat $HOME/.wifisec | grep "$ap" | sed 's/.*,.*,\(.*\)/\1/')
 else
     echo 'Warning: no password file found'
 fi
@@ -54,6 +56,8 @@ if [ "$essid" == "" ]; then
     read essid
     echo -n "pw? "
     read pw
+    echo 'Adding AP to password file.'
+    echo '$ap,$essid,$pw' >> $HOME/.wifisec
 fi
 
 # start the connection magic
