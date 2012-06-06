@@ -28,8 +28,6 @@ while [ $# -ge 1 ]; do
     fi
 done
 
-exit
-
 # colors
 RED="\e[31m"
 BLUE="\e[34m"
