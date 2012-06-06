@@ -55,7 +55,7 @@ if [ "$essid" == "" ]; then
     echo -n "pw? "
     read pw
     echo 'Adding AP to password file.'
-    echo '$ap,$essid,$pw' >> $HOME/.wifisec
+    echo "$ap,$essid,$pw" >> $HOME/.wifisec
 fi
 
 # start the connection magic
