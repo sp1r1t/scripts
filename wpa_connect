@@ -1,8 +1,17 @@
 #!/bin/bash
 
+# check root
+if [ $UID -ne 0 ]; then
+    echo "don't try to run this without superuser powers"
+    exit 1
+fi
+
 # set default vars
 scanaps=1
 JOL=0
+
+# set env (need to figure out a better way for this)
+home='/home/jinn'
 
 # switch off enoying getopts errmsgs
 export OPTERR=0
@@ -41,9 +50,9 @@ essid=""
 pw=""
 
 # look for password file and if exists get essid and pw
-if [ -e $HOME/.wifisec ]; then
-    essid=$(cat $HOME/.wifisec | grep "$ap" | sed 's/.*,\(.*\),.*/\1/')
-    pw=$(cat $HOME/.wifisec | grep "$ap" | sed 's/.*,.*,\(.*\)/\1/')
+if [ -e $home/.wifisec ]; then
+    essid=$(cat $home/.wifisec | grep "$ap" | sed 's/.*,\(.*\),.*/\1/')
+    pw=$(cat $home/.wifisec | grep "$ap" | sed 's/.*,.*,\(.*\)/\1/')
 else
     echo 'Warning: no password file found'
 fi
@@ -55,7 +64,7 @@ if [ "$essid" == "" ]; then
     echo -n "pw? "
     read pw
     echo 'Adding AP to password file.'
-    echo '$ap,$essid,$pw' >> $HOME/.wifisec
+    echo "$ap,$essid,$pw" >> $home/.wifisec
 fi
 
 # start the connection magic
