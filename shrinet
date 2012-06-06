@@ -11,6 +11,7 @@ if [ "$1" == "-h" ]; then
     echo "usage: shrinet [in out]"
     echo "ex: shrinet eth0 eth1"
     echo "def: shrinet eth0 wlan0"
+    exit 0
 fi
 
 if [ "$_" == "3" ]; then
@@ -21,10 +22,28 @@ else
     IN="eth0"
 fi
 
-echo "setting up interface $IN, ip is 192.168.66.101"
-ifconfig $IN up
-ifconfig $IN 192.168.66.101
+# check interfaces
 
+if [ -n "`ifconfig | grep $OUT`" ]; then
+    echo "OUT Interface $OUT is up"
+else
+    echo "OUT Interface $OUT is down"
+    echo "...bringing up $OUT"
+    ifconfig $OUT up
+    echo "...$OUT is up now, you probably want to get some internet connection there"
+fi
+
+if [ -n "`ifconfig | grep $IN`" ]; then
+    echo "IN Interface $IN is up"
+else
+    echo "IN Interface $IN is down"
+    echo "...bringing up $IN"
+    ifconfig $IN up
+    echo "...#IN is up now, you probably want to set up a network connection"
+fi
+
+
+# iptable set up for share
 echo "enable ip forwarding"
 echo 1 > /proc/sys/net/ipv4/ip_forward
 
