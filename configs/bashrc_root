@@ -36,6 +36,8 @@ alias l='ls $LS_OPTIONS -lA'
 alias ai='apt-get install'
 alias asr='apt-cache search'
 alias au='apt-get update'
+alias pn="ping 8.8.8.8"
+alias pu="ping web.de"
 
 # env vars
 export EDITOR='/usr/local/bin/ec'
