@@ -1,0 +1,3 @@
+#!/bin/bash
+
+alarm_timer 0 5

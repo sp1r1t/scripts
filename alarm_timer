@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# vars
+seconds=0
+minutes=0
+hours=0
+usage="usage: alarm_timer #seconds [#minutes [#hours]]"
+
+# init time values
+if [ $# == 0 -o $# -ge 4 ]; then
+    echo $usage
+    exit
+fi
+
+if [ $# -ge 1 ]; then
+    seconds=$1
+fi
+
+if [ $# -ge 2 ]; then
+    minutes=$2;
+fi
+
+if [ $# -ge 3 ]; then
+    hours=$3
+fi
+
+# DEBUG
+#echo "debug: sec is $seconds, min is $minutes, hou is $hours"
+
+sleep ${seconds}s ${minutes}m ${hours}h
+alarm_window
