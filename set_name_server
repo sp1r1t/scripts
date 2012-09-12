@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo 'nameserver 8.26.56.26' > /etc/resolv.conf
+echo 'nameserver 156.154.70.22' >> /etc/resolv.conf
