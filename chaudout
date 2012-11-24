@@ -5,16 +5,16 @@
 if [ "$1" == "hs" ]; then
     echo """pcm.!default {
 type hw
-card 1
+card 2
 }
 
-defaults.ctl.card 1
-defaults.pcm.card 1
-defaults.timer.card 1
+defaults.ctl.card 2
+defaults.pcm.card 2
+defaults.timer.card 2
 """ > $HOME/.asoundrc
 
 sudo /etc/init.d/alsa-utils restart
-alsactl init 1
+alsactl init 2
 
 elif [ "$1" == "sp" ]; then
     echo """pcm.!default {
@@ -29,6 +29,22 @@ defaults.timer.card 0
 
 sudo /etc/init.d/alsa-utils restart
 alsactl init 0
+
+
+
+elif [ "$1" == "1" ]; then
+    echo """pcm.!default {
+type hw
+card 1
+}
+
+defaults.ctl.card 1
+defaults.pcm.card 1
+defaults.timer.card 1
+""" > $HOME/.asoundrc
+
+sudo /etc/init.d/alsa-utils restart
+alsactl init 1
 
 else
     echo "usage: chaudout [hs|sp]"
