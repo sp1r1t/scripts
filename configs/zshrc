@@ -11,22 +11,62 @@ compinit
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-setopt appendhistory autocd nomatch notify
+setopt appendhistory autocd nomatch notify prompt_subst
 unsetopt beep
 bindkey -e
 # End of lines configured by zsh-newuser-install
 
 # Jinn's customization
+autoload -U colors && colors
+# some colors
+reset="%{%F{reset}%}"
+white="%{%F{white}%}"
+gray="%{%F{gray}%}"
+green="%{%F{green}%}"
+red="%{%F{red}%}"
+yellow="%{%F{yellow}%}"
+blue="%{%F{blue}%}"
+cyan="%{%F{cyan}%}"
 
+
+# prompt_char
+# changes the prompt char to ± if the current dir is a git repo
 function prompt_char {
     git branch >/dev/null 2>/dev/null && echo '±' && return 
     echo '$'
 }
 
+# git_branch
+# if the current dir is a git repo, it prints the current branch and a * if there is
+# stuff to be commited.
 function git_branch {
-    git branch >/dev/null 2>/dev/null && echo $(git branch | grep "*" | sed 's/* //')
+    git branch >/dev/null 2>/dev/null && echo -n "git:"$(git branch | grep "*" | sed 's/* //')
+    git status >/dev/null 2>/dev/null | grep modified >/dev/null 2>/dev/null && echo "* " && return
+    echo " "
 }
 
-PROMPT='%{%F{blue}%}%n%{%F{white}%}@%{%F{cyan}%}%m%{%F{reset}%}:%~$(prompt_char) '
-RPROMPT='$(git_branch) $(date +%H:%M
+function cmd_fail {
+    if [ "`echo $?`" -ne "0" ]; then
+	echo ":( "
+    fi
+}
 
+PROMPT='[%{$fg[blue]%}%n$white@$cyan%m$reset:%~]$(prompt_char) '
+RPROMPT='$(cmd_fail)$(git_branch)%T' 
+
+path+=/scripts
+
+#aliases
+alias ai='sudo apt-get install'
+alias asr='apt-cache search'
+alias sudo='sudo '
+alias ll='ls -al'
+alias l='ls -l'
+alias s="sudo su -"
+alias mktags="cd $CODEDIR && etags `find $CODEDIR -name '*.cpp' -o -name '*.[c|h]'` && cd -"
+alias pn="ping 8.8.8.8"
+alias pu="ping web.de"
+alias am="alsamixer"
+alias tor="/usr/src/tor/tor-browser_en-US/start-tor-browser"
+alias m="mplayer"
+alias moc="mocp && ~/.moc/moc_clear_song"
