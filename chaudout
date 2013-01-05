@@ -14,7 +14,7 @@ defaults.timer.card 2
 """ > $HOME/.asoundrc
 
 sudo /etc/init.d/alsa-utils restart
-alsactl init 2
+/usr/sbin/alsactl init 2
 
 elif [ "$1" == "sp" ]; then
     echo """pcm.!default {
@@ -28,7 +28,7 @@ defaults.timer.card 0
 """ > $HOME/.asoundrc
 
 sudo /etc/init.d/alsa-utils restart
-alsactl init 0
+/usr/sbin/alsactl init 0
 
 
 
@@ -44,7 +44,7 @@ defaults.timer.card 1
 """ > $HOME/.asoundrc
 
 sudo /etc/init.d/alsa-utils restart
-alsactl init 1
+/usr/sbin/alsactl init 1
 
 else
     echo "usage: chaudout [hs|sp]"
