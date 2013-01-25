@@ -9,8 +9,8 @@ compinit
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=10000
+SAVEHIST=10000
 setopt appendhistory autocd nomatch notify prompt_subst
 unsetopt beep
 bindkey -e
@@ -56,12 +56,12 @@ RPROMPT='$(cmd_fail)$(git_branch)%T'
 
 path+=/scripts
 
-#aliases
+# aliases
 alias ai='sudo apt-get install'
 alias asr='apt-cache search'
 alias sudo='sudo '
-alias ll='ls -al'
-alias l='ls -l'
+alias ll='ls -alh'
+alias l='ls -lh'
 alias s="sudo su -"
 alias mktags="cd $CODEDIR && etags `find $CODEDIR -name '*.cpp' -o -name '*.[c|h]'` && cd -"
 alias pn="ping 8.8.8.8"
@@ -70,3 +70,14 @@ alias am="alsamixer"
 alias tor="/usr/src/tor/tor-browser_en-US/start-tor-browser"
 alias m="mplayer"
 alias moc="mocp && ~/.moc/moc_clear_song"
+alias man="TERMINFO=~/.terminfo/ LESS=C TERM=mostlike PAGER=less man"
+
+[ -n "$XTERM_VERSION" ] && transset -a >/dev/null
+
+# evironment variables
+export HS='alsa_output.usb-047f_c001-00-U0x47f0xc001.analog-stereo'
+export SP='alsa_output.pci-0000_00_1b.0.analog-stereo'
+export EDITOR='/usr/local/bin/ec'
+
+# turn off XOFF/XON
+stty -ixon
