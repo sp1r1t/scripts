@@ -1,0 +1,24 @@
+Config { font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
+       , bgColor = "black"
+       , fgColor = "grey"
+       , border = NoBorder
+       , borderColor = "black"
+       , lowerOnStart = False
+       , position = TopW L 95
+       , commands = [ Run Com "cat" ["/home/jinn/.moc/current_song"] "moc" 10
+       	 	    --, Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+                    , Run MultiCpu ["-t","Cpu<autototal>","-L","30","-H","60","-h","#D88B83","-l","#A9E8A9","-n","#FFFFCC","-w","3"] 10
+		    , Run Memory ["-t","Mem <usedratio>%","-l","#A9E8A9","-n","#D88B83"] 10
+                    , Run Swap ["-l","#A9E8A9","-n","#A9E8A9"] 10
+		    , Run Network "wlan0" ["-t","<rx>/<tx>","-H","200","-L","10","-h","#D88B83","-l","#A9E8A9","-n","#D8D868"] 10
+		    , Run Network "eth0" ["-t","<rx>/<tx>","-H","200","-L","10","-h","#D88B83","-l","#A9E8A9","-n","#D8D868"] 10
+                    , Run Date "<fc=#D88B83>%H:%M</fc>" "date" 10
+                    , Run StdinReader
+		    , Run Com "/scripts/mail_alert/mail_alert.sh" ["freekmunky"] "mail_freekmunky" 10
+		    , Run Com "sh" ["-c", "'ls ~/.mail/watchdog/INBOX/new | wc -l'"] "mail_watchdog" 10
+		    , Run Com "uname" ["-s","-r"] "" 36000	
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }{ Net %eth0% %wlan0% | %multicpu% | %memory% | %swap% | <fc=#ee9a00>%date%</fc>"
+       }
