@@ -41,7 +41,7 @@ function prompt_char {
 # stuff to be commited.
 function git_branch {
     git branch >/dev/null 2>/dev/null && echo -n "git:"$(git branch | grep "*" | sed 's/* //')
-    git status >/dev/null 2>/dev/null | grep modified >/dev/null 2>/dev/null && echo "* " && return
+    git status >/dev/null 2>/dev/null | grep Changes >/dev/null 2>/dev/null && echo "* " && return
     echo " "
 }
 
@@ -54,7 +54,7 @@ function cmd_fail {
 PROMPT='[%{$fg[blue]%}%n$white@$cyan%m$reset:%~]$(prompt_char) '
 RPROMPT='$(cmd_fail)$(git_branch)%T' 
 
-path+=/scripts:/scripts
+#path+=/scripts
 
 
 # bash backward kill behaviour
@@ -86,12 +86,14 @@ alias m="mplayer"
 alias moc="mocp && ~/.moc/moc_clear_song"
 alias man="TERMINFO=~/.terminfo/ LESS=C TERM=mostlike PAGER=less man"
 
-[ -n "$XTERM_VERSION" ] && transset -a >/dev/null
+# set transparency
+[ -n "$XTERM_VERSION" ] && transset 0.9 -a >/dev/null
 
 # evironment variables
 export HS='alsa_output.usb-047f_c001-00-U0x47f0xc001.analog-stereo'
 export SP='alsa_output.pci-0000_00_1b.0.analog-stereo'
 export EDITOR='/usr/local/bin/ec'
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/scripts
 
 # turn off XOFF/XON
 stty -ixon

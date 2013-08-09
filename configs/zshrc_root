@@ -1,7 +1,7 @@
 # The following lines were added by compinstall
 
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
-zstyle :compinstall filename '/home/jinn/.zshrc'
+zstyle :compinstall filename '/root/.zshrc'
 
 autoload -Uz compinit
 compinit
@@ -54,7 +54,7 @@ function cmd_fail {
 PROMPT='[%{$fg[red]%}%n$white@$cyan%m$reset:%~]$(prompt_char) '
 RPROMPT='$(cmd_fail)$(git_branch)%T' 
 
-path+=/scripts:/scripts
+#path+=/scripts:/usr/games
 
 
 # bash backward kill behaviour
@@ -84,14 +84,15 @@ alias am="alsamixer"
 alias tor="/usr/src/tor/tor-browser_en-US/start-tor-browser"
 alias m="mplayer"
 alias moc="mocp && ~/.moc/moc_clear_song"
-alias man="TERMINFO=~/.terminfo/ LESS=C TERM=mostlike PAGER=less man"
+#alias man="TERMINFO=~/.terminfo/ LESS=C TERM=mostlike PAGER=less man"
 
 [ -n "$XTERM_VERSION" ] && transset -a >/dev/null
 
 # evironment variables
 export HS='alsa_output.usb-047f_c001-00-U0x47f0xc001.analog-stereo'
 export SP='alsa_output.pci-0000_00_1b.0.analog-stereo'
-export EDITOR='/usr/local/bin/ec'
+export EDITOR='/usr/local/bin/ecnw'
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/scripts:/usr/games
 
 # turn off XOFF/XON
 stty -ixon
