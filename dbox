@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
-python dropbox.py
+python /scripts/dropbox.py $1

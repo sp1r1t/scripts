@@ -43,7 +43,6 @@ BLUE="\e[34m"
 DEFAULT="\e[0m"
 
 # interface
-#IF="wlan0"
 IF="wlan1"
 
 # create vars and set to default
@@ -103,10 +102,10 @@ if [ -n "$string" ]; then
     dhclient -v $IF
     dhc_ex_cd=$?
 
-    if [ $dhc_ex_cd -eq "0" ]; then
-	cowsay "Muh, Connected to $essid"
+    if [ "$dhc_ex_cd" -eq "0" ]; then
+	figlet -f banner  "Muh, Connected to $essid" | cowsay -n
     else
-	cowsay "Muh, Connecting failed :("
+	figlet -f banner "Muh, Connecting failed :(" | cowsay -n -e xx
 	exit
     fi
 
@@ -117,5 +116,5 @@ if [ -n "$string" ]; then
     fi
     echo "nameserver 8.8.8.8" >> /etc/resolv.conf
 else
-    echo -e $RED"Error:$DEFAULT ap not available"
+    figlet -f banner "Error: ap not available" | cowsay -n -e 'xx'
 fi

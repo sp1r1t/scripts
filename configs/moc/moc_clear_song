@@ -1,3 +1,0 @@
-#!/bin/bash
-
-echo "" > ~/.moc/current_song
