@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# set default interface
+if='wlan0'
+
+# determine interface
+if [ "$1" != "" ]; then
+    if="$1"
+fi
+
+# associate with ap
+wpa_supplicant -i $if -c /home/jinn/varsity/wpa_supplicant_tuw.conf &
+
+# get ip
+dhclient -v $if
