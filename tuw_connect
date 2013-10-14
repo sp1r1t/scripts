@@ -9,7 +9,7 @@ if [ "$1" != "" ]; then
 fi
 
 # associate with ap
-wpa_supplicant -i $if -c /home/jinn/varsity/wpa_supplicant_tuw.conf &
+wpa_supplicant -i $if -c /home/jinn/wpa_supplicant_tuw.conf &
 
 # get ip
 dhclient -v $if

@@ -51,8 +51,8 @@ pw=""
 
 # look for password file and if exists get essid and pw
 if [ -e $home/.wifisec ]; then
-    essid=$(cat $home/.wifisec | grep "$ap" | sed 's/.*,\(.*\),.*/\1/')
-    pw=$(cat $home/.wifisec | grep "$ap" | sed 's/.*,.*,\(.*\)/\1/')
+    essid=$(cat $home/.wifisec | grep "^$ap," | sed 's/.*,\(.*\),.*/\1/')
+    pw=$(cat $home/.wifisec | grep "^$ap," | sed 's/.*,.*,\(.*\)/\1/')
 else
     echo 'Warning: no password file found'
 fi
