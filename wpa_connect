@@ -13,16 +13,23 @@ JOL=0
 # set env (need to figure out a better way for this)
 home='/home/jinn'
 
+# set default interface
+IF="wlan0"
+
 # switch off enoying getopts errmsgs
 export OPTERR=0
 
 # scan for options
-while getopts "n" opt; do
+while getopts "ni:" opt; do
     case "$opt" in
 	n)
 	    echo "I won't scan for the AP"
 	    scanaps=0
 	    ;;
+        i)
+            IF=$OPTARG
+            echo "selected interface is $IF"
+            ;;
     esac
 done
 
@@ -31,7 +38,7 @@ while [ $# -ge 1 ]; do
     if [ -n "$(echo "$1k" | grep '-')" ]; then # i don't know why, but echo acts different on "-n" alone, but with the k (or any other letter/word) it works...
 	shift
     else
-	ap="$1"
+	ap="$BASH_ARGV"
 	echo "AP is $ap"
 	break
     fi
@@ -41,9 +48,6 @@ done
 RED="\e[31m"
 BLUE="\e[34m"
 DEFAULT="\e[0m"
-
-# interface
-IF="wlan0"
 
 # create vars and set to default
 essid=""
