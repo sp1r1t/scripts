@@ -72,8 +72,6 @@ if [ "$essid" == "" ]; then
 fi
 
 # start the connection magic
-ifconfig $IF up
-
 if [ $scanaps == 1 ]; then
     echo "checking if ap exists: $essid"
     string=$(iwlist $IF scan | grep "$essid")
@@ -84,6 +82,10 @@ fi
 if [ -n "$string" ]; then
     echo -e $BLUE"connecting to $RED$essid$BLUE...$DEFAULT"
     
+    # kill previous connections
+    killall wpa_connect
+    killall dhclient
+
     # get the interface down
     ifconfig $IF down
     

@@ -1,0 +1,31 @@
+#!/bin/bash 
+
+i=0
+connected=0
+
+# my monitor jumps on and off in xrandr -q, so i wait for a moment where
+# it's reachable (buggy LGs... tsss)
+while [ $i -lt 10 ]; do
+    i=$(($i + 1))
+    if [ "`xrandr -q | grep 'HDMI1 connected'`" ]; then
+        connected=1
+        break
+    fi
+    sleep 0.1
+done
+
+if [ $connected == 1 ]; then
+    echo "dual monitor setup"
+    xrandr --output HDMI1 --auto
+    xrandr --output LVDS1 --auto --primary --left-of HDMI1
+else
+    echo "single monitor setup"
+    xrandr --output LVDS1 --auto
+    xrandr --output HDMI1 --off
+fi
+
+
+
+
+
+
