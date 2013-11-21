@@ -83,8 +83,8 @@ if [ -n "$string" ]; then
     echo -e $BLUE"connecting to $RED$essid$BLUE...$DEFAULT"
     
     # kill previous connections
-    killall wpa_connect
-    killall dhclient
+    killall wpa_supplicant 2> /dev/null
+    killall dhclient 2> /dev/null
 
     # get the interface down
     ifconfig $IF down
