@@ -20,7 +20,7 @@ for i in $avail; do
     for j in $aps; do
         if [ "$i" == "$j" ]; then
             echo "found ap $i"
-            ap=`cat ~/.wifisec | grep $i | sed 's/\(.*\),.*,.*/\1'/`
+            ap=`cat /home/jinn/.wifisec | grep $i | sed 's/\(.*\),.*,.*/\1'/`
             br=1
             break
         fi
