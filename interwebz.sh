@@ -16,8 +16,8 @@ br=0
 ap=""
 
 echo "search one to connect"
-for i in $avail; do
-    for j in $aps; do
+for i in $aps; do
+    for j in $avail; do
         if [ "$i" == "$j" ]; then
             echo "found ap $i"
             ap=`cat /home/jinn/.wifisec | grep $i | sed 's/\(.*\),.*,.*/\1'/`
@@ -33,3 +33,4 @@ done
 if [ "$ap" != "" ]; then
     /scripts/wpa_connect -n $ap
 fi
+IFS=
