@@ -125,4 +125,4 @@ fi
 naptime
 printf "sleeping %d seconds until %02d:%02d\n" "$sleeptime" "$wakehour" "$wakeminute"
 
-sleep $sleeptime; iceweasel http://www.jazzradio.com/smoothlounge
+sleep $sleeptime; mocp --play

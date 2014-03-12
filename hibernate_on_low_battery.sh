@@ -4,14 +4,21 @@
 fullbat=`cat /sys/class/power_supply/BAT0/energy_full`
 fullbat="$fullbat.0" # for python to interpret this as float
 currentbat=`cat /sys/class/power_supply/BAT0/energy_now`
+charging=`cat /sys/class/power_supply/BAT0/status`
 
 # calc percentage
-percent=$(python -c "print $currentbat / $fullbat")
-batlow=$(python -c "print $percent < 0.05")
+charge=$(python -c "print $currentbat / $fullbat")
+batlow=$(python -c "print $charge < 0.06")
 
-if [ "$batlow" == "False" ]; then
-    #echo "battery is fine"
+percent=$(python -c "print $charge * 100" | cut -d"." -f 1)
+date=`date +"%Y/%m/%d %H:%M:%S"`
+
+echo -n $date "" >> /var/log/scripts.log
+if [ $charging == "Charging" ]; then
+    echo "battery charging, $percent%" >> /var/log/scripts.log
+elif [ "$batlow" == "False" ]; then
+    echo "battery discharging, $percent%" >> /var/log/scripts.log
 else
-    echo "battery is critical, going into hibernate"
+    echo "battery is critical, $percent%, going into hibernate" >> /var/log/scripts.log
     sudo hibernate
 fi

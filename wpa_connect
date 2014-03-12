@@ -39,7 +39,6 @@ while [ $# -ge 1 ]; do
 	shift
     else
 	ap="$BASH_ARGV"
-	echo "AP is $ap"
 	break
     fi
 done
