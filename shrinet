@@ -14,7 +14,7 @@ if [ "$1" == "-h" ]; then
     exit 0
 fi
 
-if [ "$_" == "3" ]; then
+if [ "$#" == "2" ]; then
     OUT=$2
     IN=$1
 else

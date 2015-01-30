@@ -82,6 +82,9 @@ else
   hour=`date +%H`
   minute=`date +%M`
 
+  hour=${hour#0}
+  minute=${minute#0}
+
   # convert input
   var=$1
   if [ `echo $var | grep "\."` ]; then
@@ -93,7 +96,6 @@ else
     varRest=0
     varFirstPlace=0
   fi
-
 
   # calc new minutes
   if [ $varFirstPlace -eq 0 ]; then
